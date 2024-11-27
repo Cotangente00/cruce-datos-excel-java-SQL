@@ -46,7 +46,7 @@ public class consultas {
         String fechaSeleccionada = dateFormat.format(selectedDate);
         
         try ( // Obtener una conexión
-                    Connection connection = DriverManager.getConnection(url, user, password)) {
+                Connection connection = DriverManager.getConnection(url, user, password)) {
                 System.out.println("Conexión establecida");
                 try ( // Crear un statement para ejecutar consultas
                         Statement statement = connection.createStatement()) {
@@ -129,47 +129,88 @@ public class consultas {
                         }
                         
                     }
-    }
+                }
+                    
                         
-                        
-                    System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
+                // Escribir los datos de la segunda consulta
+                try (ResultSet visorSupernumerarios = statement.executeQuery("SELECT * FROM [CASALIMPIA].[pymesHogar].[visorReporteSupernumerarios] vs " +
+                                                                            "WHERE Coord = 'TCVA' " +
+                                                                            "AND (" +
+                                                                            "    DATENAME(WEEKDAY, '" + fechaSeleccionada + "') <> 'Saturday' " + // Reemplaza GETDATE() con la fecha seleccionada
+                                                                            "    OR (DATENAME(WEEKDAY, '" + fechaSeleccionada + "') = 'Saturday' AND Horario <> '200') " +
+                                                                            ");")) {
                     // Escribir los datos de la segunda consulta
-                    try (ResultSet visorSupernumerarios = statement.executeQuery("SELECT * FROM [CASALIMPIA].[pymesHogar].[visorReporteSupernumerarios] vs " +
-                                                                                "WHERE Coord = 'TCVA' " +
-                                                                                "AND (" +
-                                                                                "    DATENAME(WEEKDAY, '" + fechaSeleccionada + "') <> 'Saturday' " + // Reemplaza GETDATE() con la fecha seleccionada
-                                                                                "    OR (DATENAME(WEEKDAY, '" + fechaSeleccionada + "') = 'Saturday' AND Horario <> '200') " +
-                                                                                ");")) {
-                        // Escribir los datos de la segunda consulta
-                        Sheet ws1 = wb.createSheet("Hoja1");
-                        int rowNum2 = 3;
-                        while (visorSupernumerarios.next()) {
-                            /*
-                            // imprimir los resultados en la terminal
-                            String docProfesional = visorSupernumerarios.getString("cedula");
-                            String nombreProfesional = visorSupernumerarios.getString("nombre");
-                            String apellidoProfesional = visorSupernumerarios.getString("apellido");
-                            String coord = visorSupernumerarios.getString("especial");
-                            
-                            //IMPRIMIR COLUMNAS
-                            System.out.println("Número documento: " + docProfesional + " Nombres: " + nombreProfesional + " Apellidos: " + apellidoProfesional + " Coord: " + coord);
-                            */
-                            
-                            Row row = ws1.createRow(rowNum2++);
-                            row.createCell(3).setCellValue(visorSupernumerarios.getString("cedula"));
-                            row.createCell(4).setCellValue(visorSupernumerarios.getString("nombre"));
-                            row.createCell(5).setCellValue(visorSupernumerarios.getString("apellido"));
-                            row.createCell(6).setCellValue(visorSupernumerarios.getString("Especial"));
-                        } // Cerrar el segundo ResultSet
-                        // Cerrar el statement
-                        // Cerrar la conexión
+                    Sheet ws1 = wb.createSheet("Hoja1");
+                    int rowNum2 = 3;
+                    while (visorSupernumerarios.next()) {
+                        /*
+                        // imprimir los resultados en la terminal
+                        String docProfesional = visorSupernumerarios.getString("cedula");
+                        String nombreProfesional = visorSupernumerarios.getString("nombre");
+                        String apellidoProfesional = visorSupernumerarios.getString("apellido");
+                        String coord = visorSupernumerarios.getString("especial");
+
+                        //IMPRIMIR COLUMNAS
+                        System.out.println("Número documento: " + docProfesional + " Nombres: " + nombreProfesional + " Apellidos: " + apellidoProfesional + " Coord: " + coord);
+                        */
+
+                        Row row = ws1.createRow(rowNum2++);
+                        row.createCell(3).setCellValue(visorSupernumerarios.getString("cedula"));
+                        row.createCell(4).setCellValue(visorSupernumerarios.getString("nombre"));
+                        row.createCell(5).setCellValue(visorSupernumerarios.getString("apellido"));
+                        row.createCell(6).setCellValue(visorSupernumerarios.getString("Especial"));
+                    } // Cerrar el segundo ResultSet
+                    // Cerrar el statement
+                    // Cerrar la conexión
+                }
+                
+                String consultaSQLCalendario = "SELECT * FROM [CASALIMPIA].[pymesHogar].[visorCalendarioExp] " +
+                     "WHERE (CAST(SUBSTRING(FechaInicio, 1, 10) AS DATE) <= ? " +
+                     "AND CAST(SUBSTRING(FechaFin, 1, 10) AS DATE) >= ?) " +
+                     "OR (CAST(SUBSTRING(FechaInicio, 1, 10) AS DATE) = ? " +
+                     "AND CAST(SUBSTRING(FechaFin, 1, 10) AS DATE) = ?)";
+
+                try (PreparedStatement preparedStatement = connection.prepareStatement(consultaSQLCalendario)) {
+                    // Asignar la fecha ingresada como parámetro
+                    preparedStatement.setString(1, fechaSeleccionada); // Para fechaInicio <= fecha ingresada
+                    preparedStatement.setString(2, fechaSeleccionada); // Para fechaFin >= fecha ingresada
+                    preparedStatement.setString(3, fechaSeleccionada); // Para fechaInicio = fechaFin = fecha ingresada
+                    preparedStatement.setString(4, fechaSeleccionada); // Para fechaInicio = fechaFin = fecha ingresada
+
+                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                        if (!resultSet.isBeforeFirst()) {
+                            JOptionPane.showMessageDialog(null,
+                                "No hay datos para la fecha seleccionada: " + fechaSeleccionada,
+                                "Sin resultados",
+                                JOptionPane.INFORMATION_MESSAGE);
+                            return;
+                        } else {
+                            Sheet wsExpertasCalendario = wb.createSheet("Expertas calendario");
+
+                            // Crear los encabezados
+                            Row headerRow = wsExpertasCalendario.createRow(0);
+                            headerRow.createCell(0).setCellValue("Cedula");
+                            // Agrega aquí los demás encabezados necesarios...
+
+                            int rowNum = 1;
+                            while (resultSet.next()) {
+                                Row row = wsExpertasCalendario.createRow(rowNum++);
+                                row.createCell(0).setCellValue(resultSet.getString("ID"));
+                                // Agrega aquí los demás datos de las columnas necesarios...
+                            }
+                        }
                     }
-                }  
+                }
+                
+            }   
         }
+        
+        
         
         // Método para ejecutar las funciones globalmente
         ejecucionFunciones(wb);
-        
+        // Método para guardar el archivo nuevo Excel resultante con una ventana
         guardarArchivoVentana(wb);
         /*
         FileOutputStream outputStream;    

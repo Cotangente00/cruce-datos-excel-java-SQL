@@ -87,7 +87,7 @@ public class orderHoja1 {
             copyRow(row, originalSheet.createRow(newRowIndex2++), wb);
         }
 
-        wb.removeSheetAt(2);
+        wb.removeSheetAt(3);
     }
 
     // Método para copiar el contenido de una fila a otra

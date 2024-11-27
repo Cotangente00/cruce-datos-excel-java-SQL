@@ -9,6 +9,7 @@ import static com.casalimpia_app.procesamientoHojas.hoja1.buscarVNombresCedulas.
 import static com.casalimpia_app.procesamientoHojas.hoja1.concatenarNombresApellidos.concatenacion;
 import static com.casalimpia_app.procesamientoHojas.hoja1.intFormat.convertirTextoANumeroHoja1;
 import static com.casalimpia_app.procesamientoHojas.hoja1.noServiceCopyPaste.copiarFilasNoService;
+import static com.casalimpia_app.procesamientoHojas.hoja1.noServiceCopyPasteNewSheet.copiarFilasNoServiceNewSheet;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.IDCategorias.hogarOficina;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.dateFormat.formatearFechas;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.filtrarCiudades.filtrarCiudades;
@@ -41,5 +42,6 @@ public class funciones {
         reorganizeExcelInformeSolicitudes(wb);
         reorganizeExcelHoja1(wb);
         hogarOficina(wb);
+        copiarFilasNoServiceNewSheet(wb);
     }
 }

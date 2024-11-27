@@ -10,6 +10,7 @@ com\casalimpia_app\avance\guadarArchivo.class
 com\casalimpia_app\procesamientoHojas\maquillaje\orderHoja1.class
 com\casalimpia_app\procesamientoHojas\hoja1\intFormat.class
 com\casalimpia_app\procesamientoHojas\maquillaje\headersStyles.class
+com\casalimpia_app\procesamientoHojas\hoja1\noServiceCopyPasteNewSheet.class
 com\casalimpia_app\avance\consultas.class
 com\casalimpia_app\procesamientoHojas\hoja1\concatenarNombresApellidos.class
 com\casalimpia_app\procesamientoHojas\informeSolicitudes\intFormat.class
