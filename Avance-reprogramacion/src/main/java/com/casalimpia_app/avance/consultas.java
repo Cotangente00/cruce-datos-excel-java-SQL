@@ -203,7 +203,7 @@ public class consultas {
                             int rowNum = 1;
                             while (resultSet.next()) {
                                 Row row = wsExpertasCalendario.createRow(rowNum++);
-                                row.createCell(0).setCellValue(resultSet.getString("ID"));
+                                row.createCell(0).setCellValue(resultSet.getInt("ID"));
                                 row.createCell(1).setCellValue(resultSet.getString("Nombre"));
                                 row.createCell(2).setCellValue(resultSet.getString("FechaInicio"));
                                 row.createCell(3).setCellValue(resultSet.getString("FechaFin"));
