@@ -19,8 +19,8 @@ public class intFormat {
 
         Sheet ws = wb.getSheet("Hoja1");
 
-        // Convertir columnas A (índice 0), B (índice 1) y J (índice 9)
-        int[] columnas = {3};
+        // Convertir columnas D (índice 3) y B (índice 2) 
+        int[] columnas = {3, 2};
 
         for (int rowIndex = 1; rowIndex <= ws.getLastRowNum(); rowIndex++) { // Inicia en 1 para saltar el encabezado
             Row row = ws.getRow(rowIndex);

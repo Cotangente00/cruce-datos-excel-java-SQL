@@ -57,83 +57,84 @@ public class consultas {
                     try (PreparedStatement preparedStatement = connection.prepareStatement(consultaSQL)) {
                     //preparedStatement.setString(1, fechaSeleccionada);
 
-                    try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                        if (!resultSet.isBeforeFirst()) { // Verifica si hay resultados
-                            // Si no hay registros, muestra un mensaje al usuario
-                            JOptionPane.showMessageDialog(null,
-                                "No hay datos para la fecha seleccionada: " + fechaSeleccionada,
-                                "Sin resultados",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                            if (!resultSet.isBeforeFirst()) { // Verifica si hay resultados
+                                // Si no hay registros, muestra un mensaje al usuario
+                                JOptionPane.showMessageDialog(null,
+                                    "No hay datos para la fecha seleccionada: " + fechaSeleccionada,
+                                    "Sin resultados",
+                                    JOptionPane.INFORMATION_MESSAGE);
 
-                            // Cancelar el proceso y regresar a la ventana inicial
-                            return; // Detiene el proceso actual
-                        } else {
-                            wb = new XSSFWorkbook();
-                            Sheet ws = wb.createSheet("INFORME SOLICITUDES");
-                            // Crear los encabezados
-                            Row headerRow = ws.createRow(0);
-                            headerRow.createCell(0).setCellValue("Solicitud");
-                            headerRow.createCell(1).setCellValue("Ref. Externa");
-                            headerRow.createCell(2).setCellValue("Subtipo");
-                            headerRow.createCell(3).setCellValue("Fechas");
-                            headerRow.createCell(4).setCellValue("Cliente");
-                            headerRow.createCell(5).setCellValue("Cliente Email");
-                            headerRow.createCell(6).setCellValue("Tiempo");
-                            headerRow.createCell(7).setCellValue("Horario");
-                            headerRow.createCell(8).setCellValue("Dirección");
-                            headerRow.createCell(9).setCellValue("Cedula Profesional");
-                            headerRow.createCell(10).setCellValue("Profesional");
-                            headerRow.createCell(11).setCellValue("Estado");
-                            // Si hay registros, continúa procesando los datos
-                            int rowNum = 1;
-                            while (resultSet.next()) {
-                            // Iterar sobre los resultados e imprimirlos
-                            // Escribir los datos de la primera consulta
-                          
-                                Row row = ws.createRow(rowNum++);
-                                row.createCell(0).setCellValue(resultSet.getString("id_transaccion"));
-                                row.createCell(1).setCellValue(resultSet.getString("ref_externa"));
-                                row.createCell(2).setCellValue(resultSet.getString("id_categoria"));
-                                row.createCell(3).setCellValue(resultSet.getString("fecha"));
-                                row.createCell(4).setCellValue(resultSet.getString("fullname"));
-                                row.createCell(5).setCellValue(resultSet.getString("email"));
-                                row.createCell(6).setCellValue(resultSet.getString("horas") + (" horas"));
-                                row.createCell(7).setCellValue(resultSet.getString("horario"));
-                                row.createCell(8).setCellValue(resultSet.getString("direccion"));
-                                row.createCell(9).setCellValue(resultSet.getString("cedula"));
-                                row.createCell(10).setCellValue(resultSet.getString("nombre"));
-                                row.createCell(11).setCellValue(resultSet.getString("estado"));
-                                row.createCell(12).setCellValue(resultSet.getString("tiene_Novedad"));
-                                row.createCell(13).setCellValue(resultSet.getString("ciudad"));
+                                // Cancelar el proceso y regresar a la ventana inicial
+                                return; // Detiene el proceso actual
+                            } else {
+                                wb = new XSSFWorkbook();
+                                Sheet ws = wb.createSheet("INFORME SOLICITUDES");
+                                // Crear los encabezados
+                                Row headerRow = ws.createRow(0);
+                                headerRow.createCell(0).setCellValue("Solicitud");
+                                headerRow.createCell(1).setCellValue("Ref. Externa");
+                                headerRow.createCell(2).setCellValue("Subtipo");
+                                headerRow.createCell(3).setCellValue("Fechas");
+                                headerRow.createCell(4).setCellValue("Cliente");
+                                headerRow.createCell(5).setCellValue("Cliente Email");
+                                headerRow.createCell(6).setCellValue("Tiempo");
+                                headerRow.createCell(7).setCellValue("Horario");
+                                headerRow.createCell(8).setCellValue("Dirección");
+                                headerRow.createCell(9).setCellValue("Cedula Profesional");
+                                headerRow.createCell(10).setCellValue("Profesional");
+                                headerRow.createCell(11).setCellValue("Estado");
+                                // Si hay registros, continúa procesando los datos
+                                int rowNum = 1;
+                                while (resultSet.next()) {
+                                // Iterar sobre los resultados e imprimirlos
+                                // Escribir los datos de la primera consulta
+                            
+                                    Row row = ws.createRow(rowNum++);
+                                    row.createCell(0).setCellValue(resultSet.getString("id_transaccion"));
+                                    row.createCell(1).setCellValue(resultSet.getString("ref_externa"));
+                                    row.createCell(2).setCellValue(resultSet.getString("id_categoria"));
+                                    row.createCell(3).setCellValue(resultSet.getString("fecha"));
+                                    row.createCell(4).setCellValue(resultSet.getString("fullname"));
+                                    row.createCell(5).setCellValue(resultSet.getString("email"));
+                                    row.createCell(6).setCellValue(resultSet.getString("horas") + (" horas"));
+                                    row.createCell(7).setCellValue(resultSet.getString("horario"));
+                                    row.createCell(8).setCellValue(resultSet.getString("direccion"));
+                                    row.createCell(9).setCellValue(resultSet.getString("cedula"));
+                                    row.createCell(10).setCellValue(resultSet.getString("nombre"));
+                                    row.createCell(11).setCellValue(resultSet.getString("estado"));
+                                    row.createCell(12).setCellValue(resultSet.getString("tiene_Novedad"));
+                                    row.createCell(13).setCellValue(resultSet.getString("ciudad"));
 
-                                /*
-                                // Obtener los valores de las columnas y mostrarlos
-                                //int id = resultSet.getInt("id");
-                                String idTransaccion = resultSet.getString("id_transaccion");
-                                String idRefExterna = resultSet.getString("ref_externa");
-                                String tipo = resultSet.getString("tipo");
-                                String fecha = resultSet.getString("fecha");
-                                String cliente = resultSet.getString("fullname");
-                                String clienteEmail = resultSet.getString("email");
-                                String horas = resultSet.getString("horas");
-                                String horario = resultSet.getString("horario");
-                                String direccion = resultSet.getString("direccion");
-                                String docProfesional = resultSet.getString("cedula");
-                                String nombreProfesional = resultSet.getString("nombre");
-                                String estado = resultSet.getString("estado");
-                                String ciudad = resultSet.getString("ciudad");
+                                    /*
+                                    // Obtener los valores de las columnas y mostrarlos
+                                    //int id = resultSet.getInt("id");
+                                    String idTransaccion = resultSet.getString("id_transaccion");
+                                    String idRefExterna = resultSet.getString("ref_externa");
+                                    String tipo = resultSet.getString("tipo");
+                                    String fecha = resultSet.getString("fecha");
+                                    String cliente = resultSet.getString("fullname");
+                                    String clienteEmail = resultSet.getString("email");
+                                    String horas = resultSet.getString("horas");
+                                    String horario = resultSet.getString("horario");
+                                    String direccion = resultSet.getString("direccion");
+                                    String docProfesional = resultSet.getString("cedula");
+                                    String nombreProfesional = resultSet.getString("nombre");
+                                    String estado = resultSet.getString("estado");
+                                    String ciudad = resultSet.getString("ciudad");
 
-                                System.out.println("ID transacción: " + idTransaccion + " Ref. Externa: " + idRefExterna + " Subtipo: " + tipo + " Fechas: " + fecha + " Cliente: " + cliente + " Cliente email: " + clienteEmail + " Horas: " + horas + " horas" + " Horario: " + horario + " Dirección :" + direccion + " Cedula profesional: " + docProfesional + " Nombre profesional: " + nombreProfesional + " Estado: " + estado + " Ciudad: " + ciudad);
-                                */
-                            }   // Cerrar el primer ResultSet
+                                    System.out.println("ID transacción: " + idTransaccion + " Ref. Externa: " + idRefExterna + " Subtipo: " + tipo + " Fechas: " + fecha + " Cliente: " + cliente + " Cliente email: " + clienteEmail + " Horas: " + horas + " horas" + " Horario: " + horario + " Dirección :" + direccion + " Cedula profesional: " + docProfesional + " Nombre profesional: " + nombreProfesional + " Estado: " + estado + " Ciudad: " + ciudad);
+                                    */
+                                }   // Cerrar el primer ResultSet
+                            }
+                            
                         }
-                        
                     }
-                }
                     
-                        
+                }        
                 System.out.println("//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////");
                 // Escribir los datos de la segunda consulta
+                Statement statement = connection.createStatement();
                 try (ResultSet visorSupernumerarios = statement.executeQuery("SELECT * FROM [CASALIMPIA].[pymesHogar].[visorReporteSupernumerarios] vs " +
                                                                             "WHERE Coord = 'TCVA' " +
                                                                             "AND (" +
@@ -160,6 +161,7 @@ public class consultas {
                         row.createCell(4).setCellValue(visorSupernumerarios.getString("nombre"));
                         row.createCell(5).setCellValue(visorSupernumerarios.getString("apellido"));
                         row.createCell(6).setCellValue(visorSupernumerarios.getString("Especial"));
+                        row.createCell(2).setCellValue(visorSupernumerarios.getString("Horario"));
                     } // Cerrar el segundo ResultSet
                     // Cerrar el statement
                     // Cerrar la conexión
@@ -214,9 +216,6 @@ public class consultas {
                 }
                 
             }   
-        }
-        
-        
         
         // Método para ejecutar las funciones globalmente
         ejecucionFunciones(wb);

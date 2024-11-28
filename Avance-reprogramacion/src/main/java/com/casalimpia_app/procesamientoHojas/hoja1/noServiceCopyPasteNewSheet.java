@@ -38,47 +38,60 @@ public class noServiceCopyPasteNewSheet {
                     }
 
                     // Copiar D, E y F a A, B y C
+                    Cell celdaC = filaHoja1.getCell(2);  // Columna C es el índice 2
                     Cell celdaD = filaHoja1.getCell(3);  // Columna D es el índice 3
                     Cell celdaE = filaHoja1.getCell(4);  // Columna E es el índice 4
                     Cell celdaF = filaHoja1.getCell(5);  // Columna F es el índice 5
                     
                     // Crear y asignar valores a las celdas P, Q y R en "INFORME SOLICITUDES"
-                    Cell celdaA = filaExpertasWithoutService.createCell(0);  // Columna A es el índice 0
-                    Cell celdaB = filaExpertasWithoutService.createCell(1);  // Columna B es el índice 1
-                    Cell celdaC = filaExpertasWithoutService.createCell(2);  // Columna C es el índice 2
+                    Cell celda1 = filaExpertasWithoutService.createCell(0);  // Columna A es el índice 0
+                    Cell celda2 = filaExpertasWithoutService.createCell(1);  // Columna B es el índice 1
+                    Cell celda3 = filaExpertasWithoutService.createCell(2);  // Columna C es el índice 2
+                    Cell celda4 = filaExpertasWithoutService.createCell(3);  // Columna C es el índice 3
                     
                     System.out.println("Copiando fila: " + (i + 1) + " | D:" + (celdaD != null ? celdaD.toString() : "") + " | E:" + (celdaE != null ? celdaE.toString() : "") + " | F:" + (celdaF != null ? celdaF.toString() : ""));
-                    
+                    if (celdaC != null) {
+                        // Si es numérico, usar formato decimal para evitar notación científica
+                        if (celdaC.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                            celda1.setCellValue(df.format(celdaC.getNumericCellValue()));
+                        } else {
+                            celda1.setCellValue(celdaC.toString());
+                        }
+                    }
                     if (celdaD != null) {
                         // Si es numérico, usar formato decimal para evitar notación científica
                         if (celdaD.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                            celdaA.setCellValue(df.format(celdaD.getNumericCellValue()));
+                            celda2.setCellValue(df.format(celdaD.getNumericCellValue()));
                         } else {
-                            celdaA.setCellValue(celdaD.toString());
+                            celda2.setCellValue(celdaD.toString());
                         }
                     }
-                    if (celdaE != null) celdaB.setCellValue(celdaE.toString());
-                    if (celdaF != null) celdaC.setCellValue(celdaF.toString());
+                    if (celdaE != null) celda3.setCellValue(celdaE.toString());
+                    if (celdaF != null) celda4.setCellValue(celdaF.toString());
 
                     filaDestino++;  // Mover a la siguiente fila en Hoja1
                 }
             }
         }
         
+        int[] columna = {0,1};
+
         for (int i = 0; i <= ws.getLastRowNum(); i++) { 
             Row row = ws.getRow(i);
             if (row != null) {
-                Cell cell = row.getCell(0);
-                if (cell != null && cell.getCellType() == Cell.CELL_TYPE_STRING) {
-                    String cellValue = cell.getStringCellValue();
+                for (int colIndex : columna) {
+                    Cell cell = row.getCell(colIndex);
+                    if (cell != null && cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                        String cellValue = cell.getStringCellValue();
 
-                    // Verificar si el valor de la celda es numérico o contiene espacios al inicio o final
-                    if (cellValue.matches("\\s*\\d+\\s*")) {
-                        // Eliminar espacios en blanco y convertir a numérico
-                        double numericValue = Double.parseDouble(cellValue.trim());
-                        cell.setCellValue(numericValue);
-                    }
-                }   
+                        // Verificar si el valor de la celda es numérico o contiene espacios al inicio o final
+                        if (cellValue.matches("\\s*\\d+\\s*")) {
+                            // Eliminar espacios en blanco y convertir a numérico
+                            double numericValue = Double.parseDouble(cellValue.trim());
+                            cell.setCellValue(numericValue);
+                        }
+                    }   
+                }
             }
         }
         
