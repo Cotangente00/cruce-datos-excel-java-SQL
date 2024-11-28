@@ -19,7 +19,7 @@ import static com.casalimpia_app.procesamientoHojas.maquillaje.headersStyles.est
 import static com.casalimpia_app.procesamientoHojas.maquillaje.orderHoja1.reorganizeExcelHoja1;
 import static com.casalimpia_app.procesamientoHojas.maquillaje.orderInformeSolicitudes.reorganizeExcelInformeSolicitudes;
 import static com.casalimpia_app.procesamientoHojas.maquillaje.widthColumnSize.ajustarAnchoColumnas;
-import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.buscarVNovedades.copyPasteNovedades;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.filtrarExpertasNovedades.copyPasteNovedades;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
