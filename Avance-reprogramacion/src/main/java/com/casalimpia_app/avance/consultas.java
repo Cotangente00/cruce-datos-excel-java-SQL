@@ -191,13 +191,23 @@ public class consultas {
                             // Crear los encabezados
                             Row headerRow = wsExpertasCalendario.createRow(0);
                             headerRow.createCell(0).setCellValue("Cedula");
-                            // Agrega aquí los demás encabezados necesarios...
+                            headerRow.createCell(1).setCellValue("Nombre");
+                            headerRow.createCell(2).setCellValue("Fecha Inicio");
+                            headerRow.createCell(3).setCellValue("Fecha Fin");
+                            headerRow.createCell(4).setCellValue("Motivo");
+                            headerRow.createCell(5).setCellValue("Observacion");
+                            
 
                             int rowNum = 1;
                             while (resultSet.next()) {
                                 Row row = wsExpertasCalendario.createRow(rowNum++);
                                 row.createCell(0).setCellValue(resultSet.getString("ID"));
-                                // Agrega aquí los demás datos de las columnas necesarios...
+                                row.createCell(1).setCellValue(resultSet.getString("Nombre"));
+                                row.createCell(2).setCellValue(resultSet.getString("FechaInicio"));
+                                row.createCell(3).setCellValue(resultSet.getString("FechaFin"));
+                                row.createCell(4).setCellValue(resultSet.getString("Motivo"));
+                                row.createCell(5).setCellValue(resultSet.getString("Observacion"));
+                                
                             }
                         }
                     }
