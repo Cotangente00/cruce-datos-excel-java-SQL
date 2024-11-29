@@ -20,6 +20,7 @@ import static com.casalimpia_app.procesamientoHojas.maquillaje.orderHoja1.reorga
 import static com.casalimpia_app.procesamientoHojas.maquillaje.orderInformeSolicitudes.reorganizeExcelInformeSolicitudes;
 import static com.casalimpia_app.procesamientoHojas.maquillaje.widthColumnSize.ajustarAnchoColumnas;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.filtrarExpertasNovedades.copyPasteNovedades;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.writeNews.escribirNovedades;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -45,5 +46,6 @@ public class funciones {
         hogarOficina(wb);
         copiarFilasNoServiceNewSheet(wb);
         copyPasteNovedades(wb);
+        escribirNovedades(wb);
     }
 }
