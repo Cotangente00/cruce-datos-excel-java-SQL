@@ -22,6 +22,7 @@ import static com.casalimpia_app.procesamientoHojas.maquillaje.widthColumnSize.a
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.filtrarExpertasNovedades.copyPasteNovedades;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.writeNews.escribirNovedades;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.cuidadoras.escribirCuidadoras;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.expertasEstandar.escribirExpertasEstandar;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -49,5 +50,6 @@ public class funciones {
         copyPasteNovedades(wb);
         escribirNovedades(wb);
         escribirCuidadoras(wb);
+        escribirExpertasEstandar(wb);
     }
 }
