@@ -21,6 +21,7 @@ import static com.casalimpia_app.procesamientoHojas.maquillaje.orderInformeSolic
 import static com.casalimpia_app.procesamientoHojas.maquillaje.widthColumnSize.ajustarAnchoColumnas;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.filtrarExpertasNovedades.copyPasteNovedades;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.writeNews.escribirNovedades;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.cuidadoras.escribirCuidadoras;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -47,5 +48,6 @@ public class funciones {
         copiarFilasNoServiceNewSheet(wb);
         copyPasteNovedades(wb);
         escribirNovedades(wb);
+        escribirCuidadoras(wb);
     }
 }
