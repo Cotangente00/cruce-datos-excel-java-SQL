@@ -46,6 +46,9 @@ public class noServiceCopyPasteNews {
                 Cell celdaC = filaHoja1.getCell(2);  
                 Cell celdaD = filaHoja1.getCell(3);  
                 Cell celdaE = filaHoja1.getCell(4);
+                Cell celdaF = filaHoja1.getCell(5);  
+                Cell celdaG = filaHoja1.getCell(6);  
+                Cell celdaH = filaHoja1.getCell(7);
 
                 // Crear y asignar valores a las celdas M, N y O en "INFORME SOLICITUDES"
                 Cell celdaL = filaINFORME_SOLICITUDES.createCell(11);  
@@ -81,6 +84,9 @@ public class noServiceCopyPasteNews {
                 if (celdaC != null) celdaN.setCellValue(celdaC.toString());
                 if (celdaD != null) celdaO.setCellValue(celdaD.toString());
                 if (celdaE != null) celdaP.setCellValue(celdaE.toString());
+                if (celdaF != null) celdaQ.setCellValue(celdaF.toString());
+                if (celdaG != null) celdaR.setCellValue(celdaG.toString());
+                if (celdaH != null) celdaS.setCellValue(celdaH.toString());
                 
                 filaDestino++;  // Mover a la siguiente fila en Hoja1
             } else {
