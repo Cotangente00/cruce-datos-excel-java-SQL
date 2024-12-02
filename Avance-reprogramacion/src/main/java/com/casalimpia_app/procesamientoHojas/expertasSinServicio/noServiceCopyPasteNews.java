@@ -1,5 +1,7 @@
 package com.casalimpia_app.procesamientoHojas.expertasSinServicio;
 
+import static com.casalimpia_app.procesamientoHojas.maquillaje.widthColumnSize.ajustarColumnasManualmente;
+
 import java.text.DecimalFormat;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -117,6 +119,8 @@ public class noServiceCopyPasteNews {
                 continue;
             }
         }
+
+        ajustarColumnasManualmente(ws, 14); // Columna O (índice 14)
         
     }
     

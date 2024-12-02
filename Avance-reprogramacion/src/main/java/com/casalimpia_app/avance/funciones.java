@@ -8,7 +8,6 @@ import static com.casalimpia_app.procesamientoHojas.hoja1.buscarVNombres.BUSCARV
 import static com.casalimpia_app.procesamientoHojas.hoja1.buscarVNombresCedulas.BUSCARVNombresCedulas;
 import static com.casalimpia_app.procesamientoHojas.hoja1.concatenarNombresApellidos.concatenacion;
 import static com.casalimpia_app.procesamientoHojas.hoja1.intFormat.convertirTextoANumeroHoja1;
-import static com.casalimpia_app.procesamientoHojas.hoja1.noServiceCopyPaste.copiarFilasNoService;
 import static com.casalimpia_app.procesamientoHojas.hoja1.noServiceCopyPasteNewSheet.copiarFilasNoServiceNewSheet;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.IDCategorias.hogarOficina;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.dateFormat.formatearFechas;
@@ -43,7 +42,7 @@ public class funciones {
         convertirTextoANumeroHoja1(wb);
         BUSCARVNombresCedulas(wb);
         BUSCARVNombres(wb);
-        copiarFilasNoService(wb);
+        //copiarFilasNoService(wb);
         estilosEncabezados(wb);
         ajustarAnchoColumnas(wb);
         reorganizeExcelInformeSolicitudes(wb);

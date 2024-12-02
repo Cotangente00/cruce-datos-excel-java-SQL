@@ -1,17 +1,9 @@
 package com.casalimpia_app.procesamientoHojas.expertasSinServicio;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import org.apache.poi.ss.usermodel.*;
-
-
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.util.Comparator;
-
-
 
 public class orderExpertasSinServicio {
     public static void reorganizeExcelExpertasSinServicio(Workbook wb) throws Exception {
@@ -23,11 +15,11 @@ public class orderExpertasSinServicio {
 
         // Leer las filas, excluyendo la cabecera
         List<Row> rows = new ArrayList<>();
-        int headerIndex = sheet.getFirstRowNum(); // Suponemos que la primera fila es la cabecera
+        //int headerIndex = sheet.getFirstRowNum(); // Suponemos que la primera fila es la cabecera
         int lastRowIndex = sheet.getLastRowNum();
 
         // Almacenar las filas (sin incluir la cabecera)
-        for (int i = headerIndex + 1; i <= lastRowIndex; i++) {
+        for (int i = 0; i <= lastRowIndex; i++) {
             Row row = sheet.getRow(i);
             if (row != null) {
                 rows.add(row);
@@ -43,13 +35,14 @@ public class orderExpertasSinServicio {
         // Crear una nueva hoja para escribir los datos reorganizados
         Sheet sortedSheet = wb.createSheet("Expertas Sin Servicio Ordenado");
         // Copiar la cabecera
+        /*
         Row header = sheet.getRow(headerIndex);
         if (header != null) {
             copyRow(header, sortedSheet.createRow(0));
         }
-
+         */
         // Escribir las filas ordenadas en la nueva hoja
-        int rowIndex = 1;
+        int rowIndex = 0;
         for (Row row : rows) {
             copyRow(row, sortedSheet.createRow(rowIndex++));
         }
@@ -60,6 +53,7 @@ public class orderExpertasSinServicio {
 
         // Renombrar la nueva hoja
         wb.setSheetName(wb.getSheetIndex(sortedSheet), "Expertas Sin Servicio");
+        
     }
 
     private static void copyRow(Row sourceRow, Row targetRow) {
