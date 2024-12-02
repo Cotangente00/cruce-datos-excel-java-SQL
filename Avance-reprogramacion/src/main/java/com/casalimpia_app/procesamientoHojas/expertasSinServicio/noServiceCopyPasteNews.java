@@ -120,7 +120,11 @@ public class noServiceCopyPasteNews {
             }
         }
 
-        ajustarColumnasManualmente(ws, 14); // Columna O (índice 14)
+        ajustarColumnasManualmente(ws, 14);
+        ajustarColumnasManualmente(ws, 15);
+        ajustarColumnasManualmente(ws, 16);
+        ajustarColumnasManualmente(ws, 17);
+        ajustarColumnasManualmente(ws, 18); 
         
     }
     
