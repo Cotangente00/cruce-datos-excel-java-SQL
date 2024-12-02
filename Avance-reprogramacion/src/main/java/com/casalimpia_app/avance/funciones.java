@@ -23,6 +23,7 @@ import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.filtrarE
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.writeNews.escribirNovedades;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.cuidadoras.escribirCuidadoras;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.expertasEstandar.escribirExpertasEstandar;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.backup8And4.clasificarBackups;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -51,5 +52,6 @@ public class funciones {
         escribirNovedades(wb);
         escribirCuidadoras(wb);
         escribirExpertasEstandar(wb);
+        clasificarBackups(wb);
     }
 }
