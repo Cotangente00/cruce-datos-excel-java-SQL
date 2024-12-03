@@ -12,7 +12,7 @@ import java.sql.*;
  *
  * @author jcavilaa
  */
-public class AvanceReprogramacion {
+public class Main {
     
     public static void conexion() throws IOException, FileNotFoundException, FileNotFoundException, FileNotFoundException, Exception {
         try {
