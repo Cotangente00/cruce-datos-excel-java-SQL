@@ -127,7 +127,7 @@ public class noServiceCopyPasteNews {
         ajustarColumnasManualmente(ws, 18); 
 
         wb.removeSheetAt(2);
-        wb.removeSheetAt(3);
+        wb.removeSheetAt(2);
         
     }
     
