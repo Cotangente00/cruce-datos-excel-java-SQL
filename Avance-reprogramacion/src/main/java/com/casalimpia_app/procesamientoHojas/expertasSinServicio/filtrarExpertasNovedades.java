@@ -48,7 +48,7 @@ public class filtrarExpertasNovedades {
         for (double numero : numDocExpertasWithoutService){
             System.out.println(numero);
         }
-        System.err.println("////////////////////////////////////////////");
+        System.out.println("////////////////////////////////////////////");
         for (double numero : numDocExpertasWithNews){
             System.out.println(numero);
         }
