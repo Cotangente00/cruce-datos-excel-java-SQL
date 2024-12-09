@@ -89,7 +89,7 @@ public class orderInformeSolicitudes {
             copyRow(row, originalSheet.createRow(newRowIndex2++), wb);
         }
 
-        wb.removeSheetAt(3);
+        wb.removeSheetAt(4);
     }
 
     // Método para copiar el contenido de una fila a otra
