@@ -128,6 +128,7 @@ public class noServiceCopyPasteNews {
 
         wb.removeSheetAt(2);
         wb.removeSheetAt(2);
+        wb.removeSheetAt(2);
         
     }
     
