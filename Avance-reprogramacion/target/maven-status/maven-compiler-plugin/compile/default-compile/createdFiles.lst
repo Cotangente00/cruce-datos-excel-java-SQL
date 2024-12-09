@@ -1,5 +1,6 @@
 com\casalimpia_app\procesamientoHojas\expertasSinServicio\backup8And4.class
 com\casalimpia_app\procesamientoHojas\expertasSinServicio\noServiceCopyPasteNews.class
+com\casalimpia_app\procesamientoHojas\expertasSinServicio\writeNewsWithService.class
 com\casalimpia_app\procesamientoHojas\expertasSinServicio\expertasEstandar.class
 com\casalimpia_app\procesamientoHojas\informeSolicitudes\IDCategorias.class
 com\casalimpia_app\avance\funciones.class
@@ -14,6 +15,7 @@ com\casalimpia_app\avance\Main.class
 com\casalimpia_app\procesamientoHojas\maquillaje\widthColumnSize.class
 com\casalimpia_app\procesamientoHojas\expertasSinServicio\cuidadoras.class
 com\casalimpia_app\procesamientoHojas\informeSolicitudes\novedadesExpertas.class
+com\casalimpia_app\procesamientoHojas\expertasSinServicio\expertasNovedades.class
 com\casalimpia_app\avance\guadarArchivo.class
 com\casalimpia_app\procesamientoHojas\expertasSinServicio\orderExpertasSinServicio.class
 com\casalimpia_app\procesamientoHojas\expertasSinServicio\writeNews.class
