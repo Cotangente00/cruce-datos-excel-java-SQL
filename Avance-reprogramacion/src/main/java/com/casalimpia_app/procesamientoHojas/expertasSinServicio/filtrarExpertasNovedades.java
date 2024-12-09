@@ -14,12 +14,17 @@ public class filtrarExpertasNovedades {
     public static void copyPasteNovedades(Workbook wb) throws Exception {
         Sheet ws = wb.getSheet("Expertas Calendario"); 
         Sheet ws2 = wb.getSheet("Expertas Sin Servicio"); 
+        Sheet ws3 = wb.getSheet("ExpertasNovedades"); 
 
         Iterator<Row> rowIterator1 = ws2.iterator();
         Iterator<Row> rowIterator2 = ws.iterator();
         rowIterator2.next(); // Saltar encabezado
+        Iterator<Row> rowIterator3 = ws3.iterator();
+
+        // Crear una lista para almacenar los números de documento
 
         List<Double> numDocExpertasWithoutService = new ArrayList<>();
+        List<Double> numDocExpertasWithNews = new ArrayList<>();
 
         // Llenar la lista con los números de documento 
         while (rowIterator1.hasNext()) {
@@ -27,11 +32,25 @@ public class filtrarExpertasNovedades {
             Double numeroAsistencia = row.getCell(1).getNumericCellValue(); 
             numDocExpertasWithoutService.add(numeroAsistencia);
         }
-        /*
+
+        for (int i = 0; i <= ws3.getLastRowNum(); i++) {
+            Row row = ws3.getRow(i);
+            if (row != null){
+                Double numeroNovedades = row.getCell(0).getNumericCellValue(); 
+                numDocExpertasWithNews.add(numeroNovedades);
+            } else {
+                break;
+            }
+        }
+        
         for (double numero : numDocExpertasWithoutService){
             System.out.println(numero);
         }
-         */
+        System.err.println("////////////////////////////////////////////");
+        for (double numero : numDocExpertasWithNews){
+            System.out.println(numero);
+        }
+
         
         // Crear una lista para almacenar las filas a eliminar
         List<Integer> rowsToDelete = new ArrayList<>();
@@ -43,10 +62,9 @@ public class filtrarExpertasNovedades {
             // Verificar si la celda existe y si su tipo es numérico
             if (numerosDoc != null && numerosDoc.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                 double numeroDoc = numerosDoc.getNumericCellValue();
-
-                if (!numDocExpertasWithoutService.contains(numeroDoc)) {
+                if (!numDocExpertasWithoutService.contains(numeroDoc) && !numDocExpertasWithNews.contains(numeroDoc)) {
                     rowsToDelete.add(row.getRowNum());
-                }
+                }   
             }
         }
 
