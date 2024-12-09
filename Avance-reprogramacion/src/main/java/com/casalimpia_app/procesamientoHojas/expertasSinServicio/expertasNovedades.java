@@ -31,10 +31,8 @@ public class expertasNovedades {
                     DataFormatter formatter = new DataFormatter();
                     String numeroBuscar = formatter.formatCellValue(numeros);
                     numerosNovedades.add(numeroBuscar);
-                } else {
-                    continue;
                 }
-                //break;
+                break;
             }
             
         }
