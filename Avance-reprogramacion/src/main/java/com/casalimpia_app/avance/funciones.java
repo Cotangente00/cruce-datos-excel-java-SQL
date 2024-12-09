@@ -20,6 +20,7 @@ import static com.casalimpia_app.procesamientoHojas.maquillaje.orderInformeSolic
 import static com.casalimpia_app.procesamientoHojas.maquillaje.widthColumnSize.ajustarAnchoColumnas;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.filtrarExpertasNovedades.copyPasteNovedades;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.writeNews.escribirNovedades;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.writeNewsWithService.escribirNovedadesConServicio;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.cuidadoras.escribirCuidadoras;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.expertasEstandar.escribirExpertasEstandar;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.backup8And4.clasificarBackups;
@@ -54,6 +55,7 @@ public class funciones {
         copiarFilasNoServiceNewSheet(wb);
         copyPasteNovedades(wb);
         escribirNovedades(wb);
+        escribirNovedadesConServicio(wb);
         escribirCuidadoras(wb);
         escribirExpertasEstandar(wb);
         clasificarBackups(wb);

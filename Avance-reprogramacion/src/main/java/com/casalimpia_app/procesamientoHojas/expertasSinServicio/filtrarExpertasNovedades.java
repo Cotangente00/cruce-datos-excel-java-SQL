@@ -33,6 +33,7 @@ public class filtrarExpertasNovedades {
             numDocExpertasWithoutService.add(numeroAsistencia);
         }
 
+        
         for (int i = 0; i <= ws3.getLastRowNum(); i++) {
             Row row = ws3.getRow(i);
             if (row != null){
@@ -42,6 +43,7 @@ public class filtrarExpertasNovedades {
                 break;
             }
         }
+        
         
         for (double numero : numDocExpertasWithoutService){
             System.out.println(numero);
