@@ -25,6 +25,7 @@ import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.expertas
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.backup8And4.clasificarBackups;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.noServiceCopyPasteNews.copiarFilasNoServiceNovedades;
 import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.orderExpertasSinServicio.reorganizeExcelExpertasSinServicio;
+import static com.casalimpia_app.procesamientoHojas.expertasSinServicio.expertasNovedades.filtrarExpertasNovedadesAmarillo;
 import java.io.IOException;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -34,6 +35,8 @@ import org.apache.poi.ss.usermodel.Workbook;
  */
 public class funciones {
     public static void ejecucionFunciones(Workbook wb) throws IOException, Exception{
+        //COLOCAR FUNCIÓN AQUÍ 
+        filtrarExpertasNovedadesAmarillo(wb);
         resaltarNovedad(wb);
         filtrarCiudades(wb);
         convertirTextoANumero(wb);
