@@ -6,7 +6,10 @@ package com.casalimpia_app.procesamientoHojas.maquillaje;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,40 +22,84 @@ import org.apache.poi.ss.usermodel.Workbook;
  */
 public class orderInformeSolicitudes {
     public static void reorganizeExcelInformeSolicitudes(Workbook wb) throws IOException {
-        Sheet originalSheet = wb.getSheetAt(0);  // Obtener la primera hoja
-        Sheet newSheet = wb.createSheet("ReorganizedSheet");  // Crear una nueva hoja para los datos reorganizados
+        Sheet originalSheet = wb.getSheetAt(0); // Obtener la primera hoja
+        Sheet newSheet = wb.createSheet("ReorganizedSheet"); // Crear una nueva hoja para los datos reorganizados
 
+        List<Row> rowsWithRepeatedJK = new ArrayList<>();
         List<Row> rowsWithEmptyMN = new ArrayList<>();
         List<Row> rowsWithData = new ArrayList<>();
         List<Row> data = new ArrayList<>();
 
-        // Iterar sobre la columna A para determinar el rango de filas
-        int rowIndex = 1;  // Empezar desde la fila 2 (índice 1)
+        Set<String> uniqueJKValues = new HashSet<>();
+        Set<String> repeatedJKValues = new HashSet<>();
+
+        // Detectar filas con valores repetidos en las columnas J y K
+        int rowIndex = 1; // Empezar desde la fila 2 (índice 1)
         while (true) {
             Row row = originalSheet.getRow(rowIndex);
             if (row == null || row.getCell(0) == null || row.getCell(0).getCellType() == Cell.CELL_TYPE_BLANK) {
-                break;  // Detener cuando se encuentre la primera celda vacía en la columna A
+                break; // Detener cuando se encuentre la primera celda vacía en la columna A
             }
 
-            // Verificar las celdas en las columnas M y N (índices 12 y 13 respectivamente)
-            Cell cellM = row.getCell(12);
-            Cell cellN = row.getCell(13);
+            Cell cellJ = row.getCell(9);  // Columna J (índice 9)
+            Cell cellK = row.getCell(10); // Columna K (índice 10)
 
-            boolean isCellMEmpty = (cellM == null || cellM.getCellType() == Cell.CELL_TYPE_BLANK);
-            boolean isCellNEmpty = (cellN == null || cellN.getCellType() == Cell.CELL_TYPE_BLANK);
+            String valueJ = cellJ != null ? cellJ.toString() : "";
+            String valueK = cellK != null ? cellK.toString() : "";
 
-            // Si ambas celdas (M y N) están vacías, agregar la fila a la lista correspondiente
-            if (isCellMEmpty && isCellNEmpty) {
-                rowsWithEmptyMN.add(row);
-            } else {
-                rowsWithData.add(row);
+            String combinedValue = valueJ + "||" + valueK; // Combinar valores para identificar repeticiones
+
+            if (!valueJ.isEmpty() && !valueK.isEmpty()) {
+                if (!uniqueJKValues.add(combinedValue)) {
+                    repeatedJKValues.add(combinedValue); // Registrar como repetido
+                }
             }
 
             rowIndex++;
         }
 
-        // Copiar filas con datos primero
-        int newRowIndex = 1;  // Comenzar desde la fila 2 en la nueva hoja
+        // Separar filas repetidas en J y K
+        rowIndex = 1;
+        while (true) {
+            Row row = originalSheet.getRow(rowIndex);
+            if (row == null || row.getCell(0) == null || row.getCell(0).getCellType() == Cell.CELL_TYPE_BLANK) {
+                break;
+            }
+
+            Cell cellJ = row.getCell(9);
+            Cell cellK = row.getCell(10);
+
+            String valueJ = cellJ != null ? cellJ.toString() : "";
+            String valueK = cellK != null ? cellK.toString() : "";
+            String combinedValue = valueJ + "||" + valueK;
+
+            if (repeatedJKValues.contains(combinedValue)) {
+                rowsWithRepeatedJK.add(row); // Filas con datos repetidos en J y K
+            } else {
+                // Verificar columnas M y N
+                Cell cellM = row.getCell(12);
+                Cell cellN = row.getCell(13);
+
+                boolean isCellMEmpty = (cellM == null || cellM.getCellType() == Cell.CELL_TYPE_BLANK);
+                boolean isCellNEmpty = (cellN == null || cellN.getCellType() == Cell.CELL_TYPE_BLANK);
+
+                if (isCellMEmpty && isCellNEmpty) {
+                    rowsWithEmptyMN.add(row);
+                } else {
+                    rowsWithData.add(row);
+                }
+            }
+
+            rowIndex++;
+        }
+
+        // Copiar filas con datos repetidos en J y K primero
+        int newRowIndex = 1; // Comenzar desde la fila 2 en la nueva hoja
+        for (Row row : rowsWithRepeatedJK) {
+            copyRow(row, newSheet.createRow(newRowIndex++), wb);
+        }
+
+        // Copiar filas con datos después
         for (Row row : rowsWithData) {
             copyRow(row, newSheet.createRow(newRowIndex++), wb);
         }
@@ -62,7 +109,7 @@ public class orderInformeSolicitudes {
             copyRow(row, newSheet.createRow(newRowIndex++), wb);
         }
 
-        //eliminar datos de la hoja original omitiendo los encabezados
+        // Eliminar datos de la hoja original, omitiendo los encabezados
         for (int rowIndex2 = 1; rowIndex2 <= originalSheet.getLastRowNum(); rowIndex2++) {
             Row row = originalSheet.getRow(rowIndex2);
             if (row != null) {
@@ -72,19 +119,18 @@ public class orderInformeSolicitudes {
             }
         }
 
-
         // Almacenar todos los datos de la columna
-        int rowIndex2 = 1;  // Comenzar desde la fila 2 en la hoja nueva
+        int rowIndex2 = 1; // Comenzar desde la fila 2 en la hoja nueva
         while (true) {
             Row row = newSheet.getRow(rowIndex2);
             if (row == null || row.getCell(0) == null || row.getCell(0).getCellType() == Cell.CELL_TYPE_BLANK) {
-                break;  // Detener cuando se encuentre la primera celda vacía en la columna A
+                break; // Detener cuando se encuentre la primera celda vacía en la columna A
             }
             data.add(row);
             rowIndex2++;
-        }   
+        }
 
-        int newRowIndex2 = 1;  // Comenzar desde la fila 2 en la nueva hoja
+        int newRowIndex2 = 1; // Comenzar desde la fila 2 en la nueva hoja
         for (Row row : data) {
             copyRow(row, originalSheet.createRow(newRowIndex2++), wb);
         }
