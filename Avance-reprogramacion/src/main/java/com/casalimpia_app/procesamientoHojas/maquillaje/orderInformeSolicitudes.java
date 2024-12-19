@@ -6,6 +6,7 @@ package com.casalimpia_app.procesamientoHojas.maquillaje;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,6 +93,13 @@ public class orderInformeSolicitudes {
 
             rowIndex++;
         }
+
+        // Ordenar filas con valores repetidos en J y K
+        rowsWithRepeatedJK.sort(Comparator.comparing(row -> {
+            String valueJ = row.getCell(9) != null ? row.getCell(9).toString().trim() : "";
+            String valueK = row.getCell(10) != null ? row.getCell(10).toString().trim() : "";
+            return valueJ + "||" + valueK;
+        }));
 
         // Copiar filas con datos repetidos en J y K primero
         int newRowIndex = 1; // Comenzar desde la fila 2 en la nueva hoja

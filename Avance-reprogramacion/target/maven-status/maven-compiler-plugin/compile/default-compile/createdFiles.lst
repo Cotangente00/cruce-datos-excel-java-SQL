@@ -26,3 +26,4 @@ com\casalimpia_app\procesamientoHojas\hoja1\noServiceCopyPasteNewSheet.class
 com\casalimpia_app\procesamientoHojas\hoja1\concatenarNombresApellidos.class
 com\casalimpia_app\procesamientoHojas\maquillaje\orderInformeSolicitudes.class
 com\casalimpia_app\procesamientoHojas\informeSolicitudes\dateFormat.class
+com\casalimpia_app\procesamientoHojas\informeSolicitudes\deleteExpertasSinOtro.class
