@@ -15,6 +15,7 @@ import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.filtrarCi
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.intFormat.convertirTextoANumero;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.novedadesExpertas.resaltarNovedad;
 import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.duplicadosClientes.resaltarClientesDuplicados;
+import static com.casalimpia_app.procesamientoHojas.informeSolicitudes.deleteExpertasSinOtro.eraseRows;
 import static com.casalimpia_app.procesamientoHojas.maquillaje.headersStyles.estilosEncabezados;
 import static com.casalimpia_app.procesamientoHojas.maquillaje.orderHoja1.reorganizeExcelHoja1;
 import static com.casalimpia_app.procesamientoHojas.maquillaje.orderInformeSolicitudes.reorganizeExcelInformeSolicitudes;
@@ -63,5 +64,6 @@ public class funciones {
         reorganizeExcelExpertasSinServicio(wb);
         copiarFilasNoServiceNovedades(wb);
         resaltarClientesDuplicados(wb);
+        eraseRows(wb);
     }
 }
